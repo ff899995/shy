@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE generatorConfiguration  
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"  
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+        <!-- 引入配置文件 -->  
+        <properties resource="application.properties"/>
+
+        <!-- 指定数据库连接驱动jar地址 -->
+        <classPathEntry
+            location="C:\Users\50498\.m2\repository\mysql\mysql-connector-java\5.1.40\mysql-connector-java-5.1.40.jar" />
+
+        <!-- 一个数据库一个context --> 
+        <context id="sqlserverTables" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+            <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            	<property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>
+            	<!-- caseSensitive默认false，当数据库表名区分大小写时，可以将该属性设置为true -->
+            	<property name="caseSensitive" value="true"/>
+       		 </plugin>	
+
+            <!-- 注释 -->
+            <commentGenerator>
+                <property name="suppressAllComments" value="true" /><!-- 是否取消注释 -->
+                <!-- <property name="suppressDate" value="true" />  是否生成注释代时间戳 -->
+            </commentGenerator>  
+
+            <!-- 数据库链接URL、用户名、密码 -->
+            <jdbcConnection driverClass="${spring.datasource.driver-class-name}"
+                connectionURL="${spring.datasource.url}" userId="${spring.datasource.username}" 
+                password="${spring.datasource.password}">
+            </jdbcConnection>
+
+            <!-- 类型转换 -->
+            <javaTypeResolver>
+            <!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer true，把JDBC DECIMAL 
+                和 NUMERIC 类型解析为java.math.BigDecimal -->
+                <property name="forceBigDecimals" value="false" />
+            </javaTypeResolver>
+
+            <!-- 生成model模型，对应的包路径，以及文件存放路径(targetProject)，targetProject可以指定具体的路径,如./src/main/java， 
+                也可以使用“MAVEN”来自动生成，这样生成的代码会在target/generatord-source目录下 -->
+            <javaModelGenerator targetPackage="com.base.entity"
+                targetProject="src/main/java">
+                <!-- 是否在当前路径下新加一层schema,eg：fase路径com.oop.eksp.user.model， true:com.oop.eksp.user.model.[schemaName] --> 
+                <property name="enableSubPackages" value="false" />
+                <!-- 从数据库返回的值被清理前后的空格 -->
+                <property name="trimStrings" value="true" />
+            </javaModelGenerator>
+
+            <!--对应的mapper.xml文件 -->
+            <sqlMapGenerator targetPackage="mapper"
+                targetProject="src/main/resources">
+                <property name="enableSubPackages" value="true" />
+            </sqlMapGenerator>
+
+            
+            <!-- 对应的Mapper接口类文件 -->
+            <javaClientGenerator type="XMLMAPPER"
+                targetPackage="com.base.mapper" targetProject="src/main/java">
+                <property name="enableSubPackages" value="true" />
+            </javaClientGenerator>
+
+            <table tableName="t_user" domainObjectName="User"></table>
+            <table tableName="t_department" domainObjectName="Department"></table>
+            <table tableName="t_faq" domainObjectName="Faq"></table>
+            <table tableName="t_message" domainObjectName="Message"></table>
+            <table tableName="t_republic" domainObjectName="Republic"></table>
+            <table tableName="t_school" domainObjectName="School"></table>
+            <table tableName="t_specialty" domainObjectName="Specialty"></table>
+        </context>
+    </generatorConfiguration>    

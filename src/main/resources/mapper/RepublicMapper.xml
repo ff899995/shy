@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.base.mapper.RepublicMapper" >
+  <resultMap id="BaseResultMap" type="com.base.domain.republic.entity.Republic" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="rowguid" property="rowguid" jdbcType="VARCHAR" />
+    <result column="republic_name" property="republicName" jdbcType="VARCHAR" />
+    <result column="udate" property="udate" jdbcType="VARCHAR" />
+    <result column="read_num" property="readNum" jdbcType="INTEGER" />
+    <result column="republic_content" property="republicContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+</mapper>

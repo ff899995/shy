@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.base.mapper.RepairMapper" >
+    <select id="notreatList" resultType="com.base.domain.repair.vo.NotreatRepairVo">
+      select a.rowguid, a.repairname, a.cdate, b.name as pname
+      from t_repair a,t_user b
+      where a.statu = 1 and a.userguid = b.rowguid
+        <if test="userguid != null">and a.userguid = #{userguid}</if>
+    </select>
+    <select id="ingList" resultType="com.base.domain.repair.vo.IngRepairVo">
+        select a.rowguid, a.repairname, a.cdate,a.rdate, b.name as pname, c.name as cname
+        from t_repair a,t_user b,t_user c
+        where a.statu = 2 and a.userguid = b.rowguid and a.cuserguid = c.rowguid
+        <if test="userguid != null">and a.userguid = #{userguid}</if>
+        <if test="cuserguid != null">and a.cuserguid = #{cuserguid}</if>
+    </select>
+    <select id="endList" resultType="com.base.domain.repair.vo.EndRepairVo">
+        select a.rowguid, a.repairname, a.cdate,a.edate, b.name as pname, c.name as cname, a.success
+        from t_repair a,t_user b,t_user c
+        where a.statu = 3 and a.userguid = b.rowguid and a.cuserguid = c.rowguid
+        <if test="userguid != null">and a.userguid = #{userguid}</if>
+        <if test="success != -1">and a.success = #{success}</if>
+    </select>
+    <select id="repairDetails" resultType="com.base.domain.repair.vo.RepairDetailsVo">
+        SELECT a.rowguid,a.repairname,a.repaircontent,a.repairimgurl,a.position,a.cdate,b.`name` as pname,b.phone,c.school,d.department,e.specialty
+        FROM t_repair a,t_user b,t_school c,t_department d,t_specialty e
+        WHERE a.userguid = b.rowguid and b.schoolguid = c.rowguid and b.departmentguid = d.rowguid and b.specialtyguid = e.rowguid and a.rowguid = #{rowguid}
+    </select>
+</mapper>

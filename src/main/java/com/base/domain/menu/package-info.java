@@ -1,0 +1,1 @@
+package com.base.domain.menu;
